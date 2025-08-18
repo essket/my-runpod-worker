@@ -1,5 +1,9 @@
-# src/handler.py
+import runpod
+
 def handler(event):
     # event["input"] — это то, что ты пришлёшь в запросе
     name = (event.get("input") or {}).get("name", "world")
     return {"ok": True, "msg": f"Hello, {name}! Serverless работает."}
+
+# запускаем серверлес-воркер
+runpod.serverless.start({"handler": handler})
