@@ -1,4 +1,4 @@
-# handler.py — упрощённый обработчик RunPod Serverless
+# handler.py — упрощённый обработчик RunPod Serverless __
 import runpod
 
 def process(job):
