@@ -1,9 +1,20 @@
+# handler.py — упрощённый обработчик RunPod Serverless
 import runpod
 
-def handler(event):
-    # event["input"] — это то, что ты пришлёшь в запросе
-    name = (event.get("input") or {}).get("name", "world")
-    return {"ok": True, "msg": f"Hello, {name}! Serverless работает."}
+def process(job):
+    inp = job.get("input", {}) or {}
+    user_id = str(inp.get("user_id", "anon"))
+    character = str(inp.get("character", "anna")).lower()
+    text = str(inp.get("text", "")).strip()
 
-# запускаем серверлес-воркер
-runpod.serverless.start({"handler": handler})
+    # Здесь позже будет твоя логика персонажа.
+    reply = f"{character.title()}: я услышала тебя — «{text}»."
+
+    return {
+        "ok": True,
+        "character": character,
+        "user_id": user_id,
+        "reply": reply
+    }
+
+runpod.serverless.start({"handler": process})
